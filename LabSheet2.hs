@@ -172,9 +172,8 @@ normalise s = (keepCharactersAndDigitsOnly . removeSpaces . stringToUpper) s
 
 encipherStr :: Int -> String -> String
 encipherStr offset message = map encrypter normalisedMessage
-    where
-        encrypter = encipher offset
-        normalisedMessage = normalise message
-
+  where
+    encrypter = encipher offset
+    normalisedMessage = normalise message
 -- decrypter via brute force attack is possible but would require dictionary to
 -- check; not implemented.
