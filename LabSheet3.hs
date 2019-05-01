@@ -36,3 +36,9 @@ inRange lowerBound upperBound xs = filter withinBounds xs
 countPositives :: [Int] -> Int
 countPositives [] = 0
 countPositives xs = length (posList xs)
+
+myLength :: [a] -> Int
+myLength [] = 0
+myLength xs = foldr inc 0 xs
+  where
+    inc _ acc = acc + 1
