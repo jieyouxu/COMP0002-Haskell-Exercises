@@ -108,14 +108,14 @@ rotor :: Int -> [a] -> [a]
 rotor offset []
     | offset < 0 = 
         error "Offset cannot be smaller 0"
-    | offset > 0 = 
+    | offset >= 0 = 
         error "Offset cannot be larger than or equal to length of list"
     | otherwise = []
 rotor 0 xs = xs
 rotor offset (x : xs)
     | offset < 0 = 
         error "Offset cannot be smaller 0"
-    | offset > (length (x : xs)) = 
+    | offset >= (length (x : xs)) = 
         error "Offset cannot be larger than or equal to length of list"
     | offset == 0 = xs
     | otherwise = rotor (offset - 1) (xs ++ [x])
