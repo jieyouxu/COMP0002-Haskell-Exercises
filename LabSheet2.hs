@@ -119,3 +119,10 @@ rotor offset (x : xs)
         error "Offset cannot be larger than or equal to length of list"
     | offset == 0 = xs
     | otherwise = rotor (offset - 1) (xs ++ [x])
+
+alphabet :: [Char]
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+makeKey :: Int -> [(Char, Char)]
+makeKey offset = [ pair | pair <- zip alphabet offsetAlphabet ]
+    where offsetAlphabet = rotor offset alphabet
