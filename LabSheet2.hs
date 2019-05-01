@@ -80,3 +80,26 @@ mergeHelper accumulator (x : xs) (y : ys)
 merge :: Ord a => [a] -> [a] -> [a]
 merge [] [] = []
 merge xs ys = mergeHelper [] xs ys
+
+midIndexOf :: [a] -> Int
+midIndexOf [] = 0
+midIndexOf xs = (length xs) `div` 2
+
+takeFirstHalf :: [a] -> [a]
+takeFirstHalf [] = []
+takeFirstHalf xs = take m xs
+    where m = midIndexOf xs
+
+takeSecondHalf :: [a] -> [a]
+takeSecondHalf [] = []
+takeSecondHalf xs = drop m xs
+    where m = midIndexOf xs
+
+msort :: Ord a => [a] -> [a]
+msort [] = []
+msort (x : []) = (x : [])
+msort xs
+    = merge (msort firstHalf) (msort secondHalf)
+    where
+        firstHalf  = takeFirstHalf xs
+        secondHalf = takeSecondHalf xs
