@@ -20,3 +20,11 @@ inRange lowerBound upperBound (x:xs)
     | otherwise                 = inRange lowerBound upperBound xs
     where 
         withinBounds n = isInRange lowerBound upperBound n
+
+countPositives :: [Int] -> Int
+countPositives [] = 0
+countPositives (x:xs)
+    | isPositive x = 1 + (countPositives xs)
+    | otherwise    = countPositives xs
+    where
+        isPositive n = n > 0
