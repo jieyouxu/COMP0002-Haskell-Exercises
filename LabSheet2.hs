@@ -64,3 +64,19 @@ isortHelper sorted [] = sorted
 isort :: Ord a => [a] -> [a]
 isort [] = []
 isort xs = isortHelper [] xs
+
+mergeHelper :: Ord a => [a] -> [a] -> [a] -> [a]
+mergeHelper [] [] [] = []
+mergeHelper accumulator [] [] = accumulator
+mergeHelper accumulator xs [] = accumulator ++ xs
+mergeHelper accumulator [] ys = accumulator ++ ys
+mergeHelper accumulator (x : []) (y : [])
+    | x > y     = mergeHelper (accumulator ++ [y]) (x : []) []
+    | otherwise = mergeHelper (accumulator ++ [x]) [] (y : [])
+mergeHelper accumulator (x : xs) (y : ys)
+    | x > y     = mergeHelper (accumulator ++ [y]) (x : xs) ys
+    | otherwise = mergeHelper (accumulator ++ [x]) xs (y : ys)
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] [] = []
+merge xs ys = mergeHelper [] xs ys
