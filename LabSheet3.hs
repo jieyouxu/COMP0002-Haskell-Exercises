@@ -42,3 +42,9 @@ myLength [] = 0
 myLength xs = foldr inc 0 xs
   where
     inc _ acc = acc + 1
+
+myMap :: (a -> b) -> [a] -> [b]
+myMap _ [] = []
+myMap f xs = foldr mapper [] xs
+  where
+    mapper = (\z acc -> (f z) : acc)
