@@ -32,3 +32,7 @@ inRange :: Int -> Int -> [Int] -> [Int]
 inRange lowerBound upperBound xs = filter withinBounds xs
   where
     withinBounds n = (lowerBound <= n) && (n <= upperBound)
+
+countPositives :: [Int] -> Int
+countPositives [] = 0
+countPositives xs = length (posList xs)
