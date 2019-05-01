@@ -11,3 +11,6 @@ mult xs = foldr (*) 1 xs
 
 posList :: [Int] -> [Int]
 posList xs = filter (> 0) xs
+
+trueList :: [Bool] -> Bool
+trueList bs = foldr (&&) True bs
