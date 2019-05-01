@@ -155,3 +155,17 @@ lookUp original dictionary = getOffsetKey mapping
 
 encipher :: Int -> Char -> Char
 encipher offset c = lookUp c (makeKey offset)
+
+stringToUpper :: String -> String
+stringToUpper s = map toUpper s
+
+removeSpaces :: String -> String
+removeSpaces s = filter isNotSpace s
+  where
+    isNotSpace = not . isSpace
+
+keepCharactersAndDigitsOnly :: String -> String
+keepCharactersAndDigitsOnly s = filter isAlphaNum s
+
+normalise :: String -> String
+normalise s = (keepCharactersAndDigitsOnly . removeSpaces . stringToUpper) s
