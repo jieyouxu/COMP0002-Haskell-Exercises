@@ -1,5 +1,9 @@
-{-
-    Lab Sheet 1
+{-|
+    Haskell Exercises 1
+
+    Note that functions are implemented with respect to the question 
+    requirements, and are not necessarily the most efficient / straightforward
+    implementations possible. 
 -}
 
 import Data.List
@@ -58,3 +62,23 @@ capitalised str
     where
         first = head str
         rest  = tail str
+
+isLongWord :: String -> Bool
+isLongWord word = (length word) >= 4
+
+capitaliseLongWord :: String -> String
+capitaliseLongWord word
+    | isLongWord word = capitalised word
+    | otherwise       = word
+
+stringToLower :: String -> String
+stringToLower str = [ toLower c | c <- str ]
+
+title :: [String] -> [String]
+title [] = []
+title words
+    = (capitalised firstWord) : [ capitaliseLongWord w | w <- lowerCaseWords ]
+    where
+        firstWord = head words 
+        rest = tail words
+        lowerCaseWords = [ stringToLower s | s <- rest ]
