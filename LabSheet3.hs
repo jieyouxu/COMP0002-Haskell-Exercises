@@ -27,3 +27,8 @@ getLarger x y
 maxList :: Ord a => [a] -> a
 maxList []     = error "List cannot be empty"
 maxList (x:xs) = foldr getLarger x (x : xs)
+
+inRange :: Int -> Int -> [Int] -> [Int]
+inRange lowerBound upperBound xs = filter withinBounds xs
+  where
+    withinBounds n = (lowerBound <= n) && (n <= upperBound)
