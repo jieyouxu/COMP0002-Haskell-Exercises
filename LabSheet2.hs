@@ -124,13 +124,13 @@ makeKey offset = [pair | pair <- zip alphabet offsetAlphabet]
     offsetAlphabet = rotor offset alphabet
 
 getKeys :: [(Char, Char)] -> [Char]
-getKeys [] = []
+getKeys []         = []
 getKeys dictionary = map fst dictionary
 
 existsKey :: Char -> [(Char, Char)] -> Bool
 existsKey c dictionary = c `elem` keys
-    where
-        keys = getKeys dictionary
+  where
+    keys = getKeys dictionary
 
 getKey :: (Char, Char) -> Char
 getKey (original, _) = original
@@ -143,12 +143,15 @@ keyEquals c (k, _) = c == k
 
 findMapping :: Char -> [(Char, Char)] -> (Char, Char)
 findMapping c dictionary
-    | existsKey c dictionary = mapping
-    | otherwise = (c, c)
-    where
-        mapping = head [ pair | pair <- dictionary, keyEquals c pair ]
+  | existsKey c dictionary = mapping
+  | otherwise = (c, c)
+  where
+    mapping = head [pair | pair <- dictionary, keyEquals c pair]
 
 lookUp :: Char -> [(Char, Char)] -> Char
 lookUp original dictionary = getOffsetKey mapping
-    where
-        mapping = findMapping original dictionary
+  where
+    mapping = findMapping original dictionary
+
+encipher :: Int -> Char -> Char
+encipher offset c = lookUp c (makeKey offset)
