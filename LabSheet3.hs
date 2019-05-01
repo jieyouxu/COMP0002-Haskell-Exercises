@@ -8,3 +8,6 @@
 
 mult :: [Int] -> Int
 mult xs = foldr (*) 1 xs
+
+posList :: [Int] -> [Int]
+posList xs = filter (> 0) xs
