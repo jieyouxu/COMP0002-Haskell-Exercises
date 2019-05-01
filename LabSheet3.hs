@@ -18,3 +18,12 @@ evenList :: [Int] -> Bool
 evenList xs = trueList (map isEven xs)
   where
     isEven n = n `mod` 2 == 0
+
+getLarger :: Ord a => a -> a -> a
+getLarger x y
+  | x > y = x
+  | otherwise = y
+
+maxList :: Ord a => [a] -> a
+maxList []     = error "List cannot be empty"
+maxList (x:xs) = foldr getLarger x (x : xs)
