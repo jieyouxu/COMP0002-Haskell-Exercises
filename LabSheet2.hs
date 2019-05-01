@@ -52,3 +52,15 @@ title (w:ws)
     where
         firstWord = stringToLower w
         rest = map stringToLower ws
+
+isortHelper :: Ord a => [a] -> [a] -> [a]
+isortHelper [] (u : unsorted) = isortHelper (u : []) unsorted
+isortHelper sorted (u : unsorted)
+    = isortHelper inserted unsorted
+    where
+        inserted = filter (< u) sorted ++ [u] ++ filter (>= u) sorted
+isortHelper sorted [] = sorted
+
+isort :: Ord a => [a] -> [a]
+isort [] = []
+isort xs = isortHelper [] xs
