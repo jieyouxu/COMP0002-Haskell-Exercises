@@ -48,3 +48,6 @@ myMap _ [] = []
 myMap f xs = foldr mapper [] xs
   where
     mapper = (\z acc -> (f z) : acc)
+
+myLength' :: [a] -> Int
+myLength' = myLength
