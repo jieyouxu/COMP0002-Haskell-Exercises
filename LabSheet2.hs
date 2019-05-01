@@ -36,3 +36,19 @@ stringToLower (c:cs) = (toLower c) : (stringToLower cs)
 capitalised :: String -> String
 capitalised [] = []
 capitalised (c:cs) = (toUpper c) : (stringToLower cs)
+
+titleHelper :: [String] -> [String]
+titleHelper [] = []
+titleHelper (w:ws)
+    | isLongWord w = (capitalised w) : (titleHelper ws)
+    | otherwise    = w : (titleHelper ws)
+    where 
+        isLongWord s = length s >= 4  
+
+title :: [String] -> [String]
+title [] = []
+title (w:ws)
+    = (capitalised firstWord) : (titleHelper rest)
+    where
+        firstWord = stringToLower w
+        rest = map stringToLower ws
