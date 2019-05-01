@@ -28,3 +28,11 @@ countPositives (x:xs)
     | otherwise    = countPositives xs
     where
         isPositive n = n > 0
+
+stringToLower :: String -> String
+stringToLower [] = []
+stringToLower (c:cs) = (toLower c) : (stringToLower cs)
+
+capitalised :: String -> String
+capitalised [] = []
+capitalised (c:cs) = (toUpper c) : (stringToLower cs)
