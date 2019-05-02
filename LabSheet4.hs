@@ -28,11 +28,12 @@ wordsHelper [] accumulator = accumulator
 wordsHelper (c:[]) [[]] = [[c]]
 wordsHelper (c:str) [[]] = wordsHelper str [[c]]
 wordsHelper (c:str) accumulator
-    | isSpace c = wordsHelper str (accumulator ++ [])
+    | isSpace c = wordsHelper str (accumulator ++ [[]])
     | otherwise = wordsHelper str (previousWords ++ [newWord])
     where
         previousWords = init accumulator
         newWord = (last accumulator) ++ [c]
 
-words :: String -> [String]
-words str = isSpace c
+words' :: String -> [String]
+words' [] = []
+words' str = wordsHelper str [[]]
