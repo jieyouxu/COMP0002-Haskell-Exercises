@@ -36,4 +36,16 @@ wordsHelper (c:str) accumulator
 
 words' :: String -> [String]
 words' [] = []
-words' str = wordsHelper str [[]]
+words' sentence = wordsHelper sentence [[]]
+
+combineWords :: String -> String -> String
+combineWords [] [] = []
+combineWords l [] = l
+combineWords [] r = r
+combineWords l r  = l ++ " " ++ r
+
+unwords' :: [String] -> String
+unwords' [] = []
+unwords' [[]] = []
+unwords' words
+    = foldr combineWords [] words
