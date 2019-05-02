@@ -28,11 +28,11 @@ wordsHelper []        accumulator = accumulator
 wordsHelper (c : [] ) [[]]        = [[c]]
 wordsHelper (c : str) [[]]        = wordsHelper str [[c]]
 wordsHelper (c : str) accumulator
-  | isSpace c = wordsHelper str (accumulator ++ [[]])
-  | otherwise = wordsHelper str (previousWords ++ [newWord])
- where
-  previousWords = init accumulator
-  newWord       = (last accumulator) ++ [c]
+    | isSpace c = wordsHelper str (accumulator ++ [[]])
+    | otherwise = wordsHelper str (previousWords ++ [newWord])
+    where
+        previousWords = init accumulator
+        newWord       = (last accumulator) ++ [c]
 
 words' :: String -> [String]
 words' []       = []
@@ -70,20 +70,24 @@ unwords' words = foldr combineWords [] words
 -}
 
 isOperator :: String -> Bool
-isOperator s = let c = head s in c == '+' || c == '-' || c == '*' || c == '/'
+isOperator s = 
+    c == '+' || c == '-' || c == '*' || c == '/'
+    where
+        c = head s
 
 standard2RPNHelper :: [String] -> [String] -> [Char] -> [String]
 standard2RPNHelper [] accumulator []        = accumulator
 standard2RPNHelper [] accumulator (op : []) = accumulator ++ [[op]]
 standard2RPNHelper (x : []) accumulator (op : []) =
-  standard2RPNHelper [] (accumulator ++ [x]) [op]
+    standard2RPNHelper [] (accumulator ++ [x]) [op]
 standard2RPNHelper (x : xs) accumulator []
-  | isOperator x = standard2RPNHelper xs accumulator x
-  | otherwise    = standard2RPNHelper xs (accumulator ++ [x]) []
+    | isOperator x = standard2RPNHelper xs accumulator x
+    | otherwise    = standard2RPNHelper xs (accumulator ++ [x]) []
 standard2RPNHelper (x : xs) accumulator (op : [])
-  | isOperator x = standard2RPNHelper xs (accumulator ++ [[op]]) x
-  | otherwise    = standard2RPNHelper xs (accumulator ++ [x]) [op]
+    | isOperator x = standard2RPNHelper xs (accumulator ++ [[op]]) x
+    | otherwise    = standard2RPNHelper xs (accumulator ++ [x]) [op]
 
 standard2RPN :: String -> String
 standard2RPN []       = []
-standard2RPN sentence = unwords' $ standard2RPNHelper (words' sentence) [] []
+standard2RPN sentence = 
+    unwords' $ standard2RPNHelper (words' sentence) [] []
