@@ -2,7 +2,7 @@
     Lab Sheet 4
 -}
 
-import Data.Char
+import           Data.Char
 
 {-
     Target String: "this is a word"
@@ -24,29 +24,29 @@ import Data.Char
     [[this], [is], [a], [word]]     []
 -}
 wordsHelper :: String -> [String] -> [String]
-wordsHelper [] accumulator = accumulator
-wordsHelper (c:[]) [[]] = [[c]]
-wordsHelper (c:str) [[]] = wordsHelper str [[c]]
-wordsHelper (c:str) accumulator
-    | isSpace c = wordsHelper str (accumulator ++ [[]])
-    | otherwise = wordsHelper str (previousWords ++ [newWord])
-    where
-        previousWords = init accumulator
-        newWord = (last accumulator) ++ [c]
+wordsHelper []        accumulator = accumulator
+wordsHelper (c : [] ) [[]]        = [[c]]
+wordsHelper (c : str) [[]]        = wordsHelper str [[c]]
+wordsHelper (c : str) accumulator
+  | isSpace c = wordsHelper str (accumulator ++ [[]])
+  | otherwise = wordsHelper str (previousWords ++ [newWord])
+ where
+  previousWords = init accumulator
+  newWord       = (last accumulator) ++ [c]
 
 words' :: String -> [String]
-words' [] = []
+words' []       = []
 words' sentence = wordsHelper sentence [[]]
 
 combineWords :: String -> String -> String
 combineWords [] [] = []
-combineWords l [] = l
-combineWords [] r = r
-combineWords l r  = l ++ " " ++ r
+combineWords l  [] = l
+combineWords [] r  = r
+combineWords l  r  = l ++ " " ++ r
 
 unwords' :: [String] -> String
-unwords' [] = []
-unwords' [[]] = []
+unwords' []    = []
+unwords' [[]]  = []
 unwords' words = foldr combineWords [] words
 
 {-
@@ -68,26 +68,20 @@ unwords' words = foldr combineWords [] words
 -}
 
 isOperator :: String -> Bool
-isOperator s =  
-    let c = head s in
-        c == '+'
-        || c == '-'
-        || c == '*'
-        || c == '/'
+isOperator s = let c = head s in c == '+' || c == '-' || c == '*' || c == '/'
 
 standard2RPNHelper :: [String] -> [String] -> [Char] -> [String]
-standard2RPNHelper [] accumulator [] = accumulator
-standard2RPNHelper [] accumulator (op:[]) = accumulator ++ [[op]]
-standard2RPNHelper (x:[]) accumulator (op:[])
-    = standard2RPNHelper [] (accumulator ++ [x]) [op]
-standard2RPNHelper (x:xs) accumulator []
-    | isOperator x = standard2RPNHelper xs accumulator x
-    | otherwise = standard2RPNHelper xs (accumulator ++ [x]) []
-standard2RPNHelper (x:xs) accumulator (op:[])
-    | isOperator x = standard2RPNHelper xs (accumulator ++ [[op]]) x
-    | otherwise = standard2RPNHelper xs (accumulator ++ [x]) [op]
+standard2RPNHelper [] accumulator []        = accumulator
+standard2RPNHelper [] accumulator (op : []) = accumulator ++ [[op]]
+standard2RPNHelper (x : []) accumulator (op : []) =
+  standard2RPNHelper [] (accumulator ++ [x]) [op]
+standard2RPNHelper (x : xs) accumulator []
+  | isOperator x = standard2RPNHelper xs accumulator x
+  | otherwise    = standard2RPNHelper xs (accumulator ++ [x]) []
+standard2RPNHelper (x : xs) accumulator (op : [])
+  | isOperator x = standard2RPNHelper xs (accumulator ++ [[op]]) x
+  | otherwise    = standard2RPNHelper xs (accumulator ++ [x]) [op]
 
 standard2RPN :: String -> String
-standard2RPN [] = []
-standard2RPN sentence 
-    = unwords' $ standard2RPNHelper (words' sentence) [] [] 
+standard2RPN []       = []
+standard2RPN sentence = unwords' $ standard2RPNHelper (words' sentence) [] []
