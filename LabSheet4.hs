@@ -53,7 +53,7 @@ unwords' words = foldr combineWords [] words
     Reverse Polish Notation
 
     Only supports simple expressions of the form "int op int op int ...". No 
-    support for operator precendence or parenthesis. By default all four 
+    support for operator precendence or parentheses. By default all four 
     operators are left-associative and are of equal precedence.
 
     1 + 2 * 3
