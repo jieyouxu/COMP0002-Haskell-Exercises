@@ -47,5 +47,4 @@ combineWords l r  = l ++ " " ++ r
 unwords' :: [String] -> String
 unwords' [] = []
 unwords' [[]] = []
-unwords' words
-    = foldr combineWords [] words
+unwords' words = foldr combineWords [] words
